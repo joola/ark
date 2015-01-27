@@ -23,7 +23,7 @@
 #
 
 use_inline_resources if defined?(use_inline_resources)
-include ::Ark::ProviderHelpers
+include ::AK::ProviderHelpers
 
 #################
 # action :install

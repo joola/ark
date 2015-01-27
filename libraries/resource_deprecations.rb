@@ -1,4 +1,4 @@
-module Ark
+module AK
   class ResourceDeprecations
     def self.on(resource)
       new(resource).warnings

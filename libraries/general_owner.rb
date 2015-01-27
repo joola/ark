@@ -1,4 +1,4 @@
-module Ark
+module AK
   class GeneralOwner
     def initialize(resource)
       @resource = resource

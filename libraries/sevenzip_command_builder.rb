@@ -1,4 +1,4 @@
-module Ark
+module AK
   class SevenZipCommandBuilder
     def unpack
       sevenzip_command

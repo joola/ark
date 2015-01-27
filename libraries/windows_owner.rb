@@ -1,4 +1,4 @@
-module Ark
+module AK
   class WindowsOwner
     def initialize(resource)
       @resource = resource

@@ -7,32 +7,32 @@ require_relative 'tar_command_builder'
 require_relative 'general_owner'
 require_relative 'windows_owner'
 
-module Ark
+module AK
   module ProviderHelpers
-    extend ::Ark::PlatformSpecificBuilders
+    extend ::AK::PlatformSpecificBuilders
 
     generates_archive_commands_for :seven_zip,
       when_the: -> { node['platform_family'] == 'windows' },
-      with_klass: ::Ark::SevenZipCommandBuilder
+      with_klass: ::AK::SevenZipCommandBuilder
 
     generates_archive_commands_for :unzip,
       when_the: -> { new_resource.extension =~ /zip|war|jar/ },
-      with_klass: ::Ark::UnzipCommandBuilder
+      with_klass: ::AK::UnzipCommandBuilder
 
     generates_archive_commands_for :tar,
       when_the: -> { true },
-      with_klass: ::Ark::TarCommandBuilder
+      with_klass: ::AK::TarCommandBuilder
 
     generates_owner_commands_for :windows,
       when_the: -> { node['platform_family'] == 'windows' },
-      with_klass: ::Ark::WindowsOwner
+      with_klass: ::AK::WindowsOwner
 
     generates_owner_commands_for :all_other_platforms,
       when_the: -> { true },
-      with_klass: ::Ark::GeneralOwner
+      with_klass: ::AK::GeneralOwner
 
     def deprecations
-      ::Ark::ResourceDeprecations.on(new_resource)
+      ::AK::ResourceDeprecations.on(new_resource)
     end
 
     def show_deprecations
@@ -40,7 +40,7 @@ module Ark
     end
 
     def defaults
-      @resource_defaults ||= ::Ark::ResourceDefaults.new(new_resource)
+      @resource_defaults ||= ::AK::ResourceDefaults.new(new_resource)
     end
 
     def set_paths
@@ -101,11 +101,11 @@ module Ark
 
     def archive_builder_klass
       new_resource.extension ||= defaults.extension
-      Ark::ProviderHelpers.archive_command_generators.find { |condition, _klass| instance_exec(&condition) }.last
+      AK::ProviderHelpers.archive_command_generators.find { |condition, _klass| instance_exec(&condition) }.last
     end
 
     def owner_builder_klass
-      Ark::ProviderHelpers.owner_command_generators.find { |condition, _klass| instance_exec(&condition) }.last
+      AK::ProviderHelpers.owner_command_generators.find { |condition, _klass| instance_exec(&condition) }.last
     end
   end
 end
